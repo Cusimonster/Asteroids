@@ -26,3 +26,5 @@
 *.exe
 *.out
 *.app
+/Chap5SingleTexture/*.sdf
+/Chap5SingleTexture/*.sdf
