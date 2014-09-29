@@ -7,6 +7,7 @@
 
 #include "spaceWar.h"
 
+
 //=============================================================================
 // Constructor
 //=============================================================================
@@ -28,19 +29,16 @@ Spacewar::~Spacewar()
 void Spacewar::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
-
-	if (!sonyTexture.initialize(graphics, SONY_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Sony texture initialization failed"));
-	if (!sony.initialize(graphics, 0,0,0, &sonyTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error init sony"));
-	sony.setX(GAME_WIDTH/2 - (sony.getWidth()*SONY_IMAGE_SCALE)/2);
-	sony.setY(GAME_HEIGHT/2 - (sony.getHeight()*SONY_IMAGE_SCALE)/2);
-	sony.setScale(SONY_IMAGE_SCALE);
-
-
 	
-	sonyVel.xVel = 60;
-	sonyVel.yVel = 60;
+	if (!shipTexture.initialize(graphics, SHIP_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Ship texture initialization failed"));
+	if (!ship.initialize(graphics, 0,0,0, &shipTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error init ship"));
+	ship.setX(GAME_WIDTH/2 - (ship.getWidth()*SHIP_IMAGE_SCALE)/2);
+	ship.setY(GAME_HEIGHT/2 - (ship.getHeight()*SHIP_IMAGE_SCALE)/2);
+	ship.setScale(SHIP_IMAGE_SCALE);
+
+	shipSpeed = 120;
 
 
     return;
@@ -67,24 +65,33 @@ void Spacewar::update()
 // INPUT MODS
  ////////////////
 
+	if(input->isKeyDown(VK_SPACE))
+	{
+		MessageBeep((UINT) -1);
+	}
+
 	D3DXVECTOR2 direction(0,0);
-
-	if (input->isKeyDown(VK_RIGHT))
-		direction.x = 1;
-	if (input->isKeyDown(VK_LEFT))
-		direction.x = -1;
-	if (input->isKeyDown(VK_DOWN))
-		direction.y = 1;
-	if (input->isKeyDown(VK_UP))
+	if(input->isKeyDown(VK_UP))
 		direction.y = -1;
+	if(input->isKeyDown(VK_DOWN))
+		direction.y = 1;
+	if(input->isKeyDown(VK_RIGHT))
+		direction.x = 1;
+	if(input->isKeyDown(VK_LEFT))
+		direction.x = -1;
+	D3DXVec2Normalize(&direction,&direction);
+	
+	ship.setX(ship.getX() + direction.x*shipSpeed*frameTime);
+	ship.setY(ship.getY() + direction.y*shipSpeed*frameTime);
 
-	D3DXVec2Normalize(&direction, &direction);
-
-	pos.x = sony.getX() + sonyVel.xVel * frameTime * direction.x;
-	sony.setX(pos.x);
-
-	pos.y = sony.getY() + sonyVel.yVel * frameTime * direction.y;
-	sony.setY(pos.y);
+	if(ship.getX() < 0)
+		ship.setX(0);
+	if(ship.getX()+ship.getWidth()*ship.getScale() > GAME_WIDTH)
+		ship.setX(GAME_WIDTH-ship.getWidth()*ship.getScale());
+	if(ship.getY() < 0)
+		ship.setY(0);
+	if(ship.getY()+ship.getHeight()*ship.getScale() > GAME_HEIGHT)
+		ship.setY(GAME_HEIGHT-ship.getHeight()*ship.getScale());
 
 }
 
@@ -107,9 +114,7 @@ void Spacewar::render()
 {
     graphics->spriteBegin();                // begin drawing sprites
 
-	sony.draw();
-
-	
+	ship.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
@@ -120,7 +125,7 @@ void Spacewar::render()
 //=============================================================================
 void Spacewar::releaseAll()
 {
-	sonyTexture.onLostDevice();
+	shipTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -133,7 +138,7 @@ void Spacewar::releaseAll()
 void Spacewar::resetAll()
 {
    
-	sonyTexture.onResetDevice();
+	shipTexture.onResetDevice();
 
     Game::resetAll();
     return;

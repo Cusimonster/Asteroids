@@ -12,6 +12,7 @@
 #include "image.h"
 #include "graphics.h"
 
+
 //=============================================================================
 // This class is the core of the game
 //=============================================================================
@@ -21,14 +22,14 @@ private:
 
 	// My defines
 
-	#define SONY_IMAGE_SCALE 0.4
+	#define SHIP_IMAGE_SCALE 0.2
 
-// My vars
+	// My vars
 
-	float sonyXVel;
-	float sonyYVel;
-	TextureManager sonyTexture;
-	Image sony;
+	float shipSpeed;
+	TextureManager shipTexture;
+	Image ship;
+	
 
 	struct position{
 		float xPos;
