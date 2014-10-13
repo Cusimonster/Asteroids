@@ -13,6 +13,7 @@
 #include "planet.h"
 #include "ship.h"
 #include "bullet.h"
+#include "asteroid.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -23,10 +24,17 @@ private:
     // game items
     TextureManager nebulaTexture;   // nebula texture
     TextureManager gameTextures;    // game texture
+	TextureManager shipTextures; 
+	TextureManager asteroidTextures; 
+
     Ship    ship;           		// spaceship
     Planet  planet;                 // the planet
     Image   nebula;                 // backdrop image
 	Bullet  bullets[MAX_BULLETS];   // array of bullets
+	Asteroid asteroids[MAX_ASTEROIDS];   // array of bullets
+
+	int asteroidCounter;
+	int asterGroupSize;
 
 	// flags
 	bool shoot;
@@ -48,7 +56,7 @@ public:
 
 	
 	void spawnBullet(VECTOR2 pos, VECTOR2 vel);
-
+	void spawnAsteroid(VECTOR2 pos, VECTOR2 vel);
 	
 
 	void releaseAll();

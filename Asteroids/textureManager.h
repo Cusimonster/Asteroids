@@ -14,7 +14,7 @@ class TextureManager
 {
     // TextureManager properties
   private:
-    UINT       width;       // width of texture in pixels
+    UINT       width;       // width of texture in \xels
     UINT       height;      // height of texture in pixels
     LP_TEXTURE texture;     // pointer to texture
     const char *file;       // name of file

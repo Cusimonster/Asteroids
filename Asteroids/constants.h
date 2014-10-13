@@ -44,11 +44,14 @@ const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calcul
 
 const int MAX_BULLETS = 50;
 const float SHOOT_DELAY = 1;
+const int MAX_ASTEROIDS = 50;
 
 
 // graphic images
-const char NEBULA_IMAGE[] =   "pictures\\orion.jpg";     // photo source NASA/courtesy of nasaimages.org 
-const char TEXTURES_IMAGE[] = "pictures\\textures.png";  // game textures
+const char NEBULA_IMAGE[] =    "pictures\\orion.jpg";     // photo source NASA/courtesy of nasaimages.org 
+const char TEXTURES_IMAGE[] =  "pictures\\textures.png";  // game textures
+const char SHIP_IMAGE[] =	   "pictures\\Ship.png";
+const char ASTEROID_IMAGE[] = "pictures\\asteroid.png";
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.

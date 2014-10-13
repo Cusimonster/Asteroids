@@ -6,12 +6,23 @@
 // This class is the core of the game
 
 #include "spaceWar.h"
+#include <chrono>
+
+extern auto start_time = 1;
+extern auto current_time = 1;
+
+VECTOR2 testCollisionVector;//NEC
+//extern int asteroidCounter = 0;
+//extern int asterGroupSize = 1;
 
 //=============================================================================
 // Constructor
 //=============================================================================
 Spacewar::Spacewar()
-{}
+{
+	asteroidCounter = 0;
+	asterGroupSize = 25;//NEC default should be 1...25 for testing
+}
 
 //=============================================================================
 // Destructor
@@ -37,6 +48,16 @@ void Spacewar::initialize(HWND hwnd)
     if (!gameTextures.initialize(graphics,TEXTURES_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing game textures"));
 
+	//ship sprite sheet
+	if (!shipTextures.initialize(graphics,SHIP_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship textures"));
+
+	//unarmed asteroid sprite sheet
+	if (!asteroidTextures.initialize(graphics,ASTEROID_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship textures"));
+
+	//---------------------------------------------
+
     // nebula image
     if (!nebula.initialize(graphics,0,0,0,&nebulaTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebula"));
@@ -45,8 +66,9 @@ void Spacewar::initialize(HWND hwnd)
     if (!planet.initialize(this, planetNS::WIDTH, planetNS::HEIGHT, 2, &gameTextures))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
 
-    // ship
-    if (!ship.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &gameTextures))
+	//NEC: ship
+	
+	if (!ship.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &shipTextures))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1"));
     ship.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
     ship.setCurrentFrame(shipNS::SHIP1_START_FRAME);
@@ -63,6 +85,13 @@ void Spacewar::initialize(HWND hwnd)
 		bullets[i].setCurrentFrame(bulletNS::BULLET_START_FRAME);
 	}
 
+	//unarmed asteroids
+	for(int i=0; i<MAX_ASTEROIDS; i++)
+	{
+		if (!asteroids[i].initialize(this, asteroidNS::WIDTH, asteroidNS::HEIGHT, 0, &asteroidTextures))//asteroidNS::TEXTURE_COLS
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing bullets"));
+		asteroids[i].setCurrentFrame(0);
+	}
 
 	// flags
 	shoot = false;
@@ -76,9 +105,10 @@ void Spacewar::initialize(HWND hwnd)
 // Update all game items
 //=============================================================================
 void Spacewar::update()
-{
+{		
 	ship.update(frameTime, shoot);
 	shootTime += frameTime;
+
 	if(shoot && shootTime >= SHOOT_DELAY)
 	{
 		spawnBullet(VECTOR2(ship.getX(),ship.getY()),VECTOR2(bulletNS::SPEED,0));
@@ -92,6 +122,34 @@ void Spacewar::update()
 		if(bullets[i].getActive())
 			bullets[i].update(frameTime);
 	}
+	
+	
+	int test = std::chrono::seconds(current_time - start_time).count();
+	//Begin Unarmed Asteroid spawning
+	if(test > 5)
+	{
+			asterGroupSize += 5;//at 20 seconds, increase asteroid count by 5
+	}
+	if(asteroidCounter < asterGroupSize && asteroidCounter < MAX_ASTEROIDS)
+	{
+		spawnAsteroid(VECTOR2(GAME_WIDTH, rand() % 600 + -100),VECTOR2(asteroidNS::SPEED + rand() % 50, rand() % 100 + -50));
+		asteroidCounter++;
+	}
+
+	for(int i = 0; i < asteroidCounter; i++)
+	{
+		if(!asteroids[i].getActive()) asteroidCounter--;
+	}
+
+	for(int i=0; i<MAX_ASTEROIDS; i++)
+	{
+			if(asteroids[i].getActive())
+			asteroids[i].update(frameTime);
+		
+			if(i%2) asteroids[i].setRadians(asteroids[i].getRadians() + 0.001);//if an even index of the asteroids array, then rotate clockwise
+			else asteroids[i].setRadians(asteroids[i].getRadians() - 0.001);//if an odd index of the asteroids array, then rotate counter clockwise
+	}
+	//End Unarmed Asteroid spawning
 }
 
 //=============================================================================
@@ -104,7 +162,13 @@ void Spacewar::ai()
 // Handle collisions
 //=============================================================================
 void Spacewar::collisions()
-{}
+{
+	for(int i = 0; i < MAX_ASTEROIDS; i++)
+	{
+		if(ship.collidesWith(asteroids[i], testCollisionVector)) ship.setActive(false);
+	}
+	
+}
 
 //=============================================================================
 // Render game items
@@ -120,6 +184,11 @@ void Spacewar::render()
 	{
 		if(bullets[i].getActive())
 			bullets[i].draw();
+	}
+	for(int i=0; i<MAX_ASTEROIDS; i++)
+	{
+		if(asteroids[i].getActive())
+			asteroids[i].draw();
 	}
 
 
@@ -149,6 +218,29 @@ void Spacewar::spawnBullet(VECTOR2 pos, VECTOR2 vel)
 	}
 }
 
+//
+// activate new Asteroid
+//
+void Spacewar::spawnAsteroid(VECTOR2 pos, VECTOR2 vel)
+{
+	Asteroid* first = nullptr;
+	for(int i=0; i<MAX_ASTEROIDS; i++)
+	{
+		if(!(asteroids[i].getActive()))
+		{
+			first = &asteroids[i];
+			break;
+		}
+	}
+	if(first != nullptr)
+	{
+		first->setActive(true);
+		first->setVelocity(vel);
+		first->setX(pos.x);
+		first->setY(pos.y);
+	}
+}
+
 
 //=============================================================================
 // The graphics device was lost.
@@ -158,6 +250,8 @@ void Spacewar::releaseAll()
 {
     nebulaTexture.onLostDevice();
     gameTextures.onLostDevice();
+	shipTextures.onLostDevice();
+	asteroidTextures.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -170,6 +264,8 @@ void Spacewar::resetAll()
 {
     gameTextures.onResetDevice();
     nebulaTexture.onResetDevice();
+	shipTextures.onResetDevice();
+	asteroidTextures.onResetDevice();
     Game::resetAll();
     return;
 }
