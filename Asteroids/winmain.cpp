@@ -10,7 +10,9 @@
 #include <stdlib.h>             // for detecting memory leaks
 #include <crtdbg.h>             // for detecting memory leaks
 #include "spaceWar.h"
-#include <chrono>				//for clock time
+#include <time.h>
+
+
 
 // Function prototypes
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int); 
@@ -22,10 +24,8 @@ Spacewar *game = NULL;
 HWND hwnd = NULL;
 
 //NEC globals
-auto start_time = std::chrono::high_resolution_clock::now();
-auto current_time = std::chrono::high_resolution_clock::now();
-//int asteroidCounter = 0;
-//int asterGroupSize = 1;
+time_t start = time(0);
+double seconds_since_start = difftime( time(0), start);
 //end globals
 
 

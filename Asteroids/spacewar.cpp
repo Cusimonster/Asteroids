@@ -6,10 +6,11 @@
 // This class is the core of the game
 
 #include "spaceWar.h"
-#include <chrono>
+#include <time.h>
 
-extern auto start_time = 1;
-extern auto current_time = 1;
+extern time_t start;
+extern double seconds_since_start;
+
 
 VECTOR2 testCollisionVector;//NEC
 //extern int asteroidCounter = 0;
@@ -21,7 +22,7 @@ VECTOR2 testCollisionVector;//NEC
 Spacewar::Spacewar()
 {
 	asteroidCounter = 0;
-	asterGroupSize = 25;//NEC default should be 1...25 for testing
+	asterGroupSize = 1;//NEC default should be 1...25 for testing
 }
 
 //=============================================================================
@@ -124,15 +125,17 @@ void Spacewar::update()
 	}
 	
 	
-	int test = std::chrono::seconds(current_time - start_time).count();
+	seconds_since_start = difftime( time(0), start);
 	//Begin Unarmed Asteroid spawning
-	if(test > 5)
-	{
-			asterGroupSize += 5;//at 20 seconds, increase asteroid count by 5
-	}
+	if(seconds_since_start == 10) asterGroupSize = 3;
+	if(seconds_since_start == 20) asterGroupSize = 5;
+	if(seconds_since_start == 30) asterGroupSize = 8;
+	if(seconds_since_start == 40) asterGroupSize = 10;
+	if(seconds_since_start == 60) asterGroupSize = 20;
+
 	if(asteroidCounter < asterGroupSize && asteroidCounter < MAX_ASTEROIDS)
 	{
-		spawnAsteroid(VECTOR2(GAME_WIDTH, rand() % 600 + -100),VECTOR2(asteroidNS::SPEED + rand() % 50, rand() % 100 + -50));
+		spawnAsteroid(VECTOR2(GAME_WIDTH, rand() % 600 + -100),VECTOR2(asteroidNS::SPEED + (rand() % 20), rand() % 100 + -50));
 		asteroidCounter++;
 	}
 
@@ -165,7 +168,20 @@ void Spacewar::collisions()
 {
 	for(int i = 0; i < MAX_ASTEROIDS; i++)
 	{
-		if(ship.collidesWith(asteroids[i], testCollisionVector)) ship.setActive(false);
+		if(ship.collidesWith(asteroids[i], testCollisionVector))
+		{
+			ship.setX(0);//ship.setActive(false);
+			asteroids[i].setActive(false);
+		}
+		for(int j =0; j< MAX_BULLETS; j++)
+		{
+			
+			if(asteroids[i].collidesWith(bullets[j],testCollisionVector))
+			{
+				asteroids[i].setX(0);
+				bullets[j].setX(0);
+			}
+		}
 	}
 	
 }
