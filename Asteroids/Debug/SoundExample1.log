@@ -1,14 +1,14 @@
-﻿Build started 10/13/2014 6:45:49 PM.
+﻿Build started 10/14/2014 11:29:13 PM.
      1>Project "C:\Users\cusimanone1\Documents\Grove City College\Fall 2014\Comp 441 Games\Game 1\A 2.0\Asteroids\Asteroids\SoundExample1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Include" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt asteroid.cpp audio.cpp bullet.cpp entity.cpp game.cpp graphics.cpp image.cpp input.cpp planet.cpp ship.cpp spacewar.cpp textureManager.cpp winmain.cpp
          winmain.cpp
          textureManager.cpp
          spacewar.cpp
-     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(138): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
-     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(138): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
-     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(152): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(153): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(140): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
+     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(140): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
+     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(154): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\cusimanone1\documents\grove city college\fall 2014\comp 441 games\game 1\a 2.0\asteroids\asteroids\spacewar.cpp(155): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
          ship.cpp
          planet.cpp
          input.cpp
@@ -40,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:12.19
+Time Elapsed 00:00:20.97

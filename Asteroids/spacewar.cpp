@@ -70,6 +70,9 @@ void Spacewar::initialize(HWND hwnd)
 	//NEC: ship
 	
 	if (!ship.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &shipTextures))
+
+    // ship
+    if (!ship.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &gameTextures))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1"));
     ship.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
     ship.setCurrentFrame(shipNS::SHIP1_START_FRAME);
@@ -117,7 +120,6 @@ void Spacewar::update()
 		shootTime = 0;
 	}
 
-    planet.update(frameTime);
 	for(int i=0; i<MAX_BULLETS; i++)
 	{
 		if(bullets[i].getActive())
@@ -191,11 +193,10 @@ void Spacewar::collisions()
 //=============================================================================
 void Spacewar::render()
 {
-    graphics->spriteBegin();                // begin drawing sprites
-
-    nebula.draw();                          // add the orion nebula to the scene
-    planet.draw();                          // add the planet to the scene
-    ship.draw();                            // add the spaceship to the scene
+	graphics->spriteBegin();                // begin drawing sprites
+	
+	nebula.draw();                          // add the orion nebula to the scene
+	ship.draw();                            // add the spaceship to the scene
 	for(int i=0; i<MAX_BULLETS; i++)
 	{
 		if(bullets[i].getActive())
@@ -206,7 +207,6 @@ void Spacewar::render()
 		if(asteroids[i].getActive())
 			asteroids[i].draw();
 	}
-
 
     graphics->spriteEnd();                  // end drawing sprites
 }
