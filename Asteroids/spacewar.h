@@ -39,6 +39,7 @@ private:
 	// flags
 	bool shoot;
 	float shootTime;
+	bool gameOver;
 
 public:
     // Constructor

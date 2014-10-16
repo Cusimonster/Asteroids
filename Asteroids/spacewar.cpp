@@ -100,7 +100,7 @@ void Spacewar::initialize(HWND hwnd)
 	// flags
 	shoot = false;
 	shootTime = 0;
-
+	gameOver = false;
 
     return;
 }
@@ -109,15 +109,18 @@ void Spacewar::initialize(HWND hwnd)
 // Update all game items
 //=============================================================================
 void Spacewar::update()
-{		
-	ship.update(frameTime, shoot);
-	shootTime += frameTime;
-
-	if(shoot && shootTime >= SHOOT_DELAY)
+{
+	if(ship.getActive())
 	{
-		spawnBullet(VECTOR2(ship.getX(),ship.getY()),VECTOR2(bulletNS::SPEED,0));
-		audio->playCue(HIT);
-		shootTime = 0;
+		ship.update(frameTime, shoot);
+		shootTime += frameTime;
+	
+		if(shoot && shootTime >= SHOOT_DELAY)
+		{
+			spawnBullet(VECTOR2(ship.getX(),ship.getY()),VECTOR2(bulletNS::SPEED,0));
+			audio->playCue(HIT);
+			shootTime = 0;
+		}
 	}
 
 	for(int i=0; i<MAX_BULLETS; i++)
@@ -137,7 +140,10 @@ void Spacewar::update()
 
 	if(asteroidCounter < asterGroupSize && asteroidCounter < MAX_ASTEROIDS)
 	{
-		spawnAsteroid(VECTOR2(GAME_WIDTH, rand() % 600 + -100),VECTOR2(asteroidNS::SPEED + (rand() % 20), rand() % 100 + -50));
+		VECTOR2 newpos = VECTOR2(GAME_WIDTH, rand() % (GAME_HEIGHT+asteroidNS::HEIGHT)-asteroidNS::HEIGHT);
+		VECTOR2 newdir = VECTOR2(GAME_WIDTH/6, rand() % GAME_HEIGHT) - newpos;
+		D3DXVec2Normalize(&newdir,&newdir);
+		spawnAsteroid(newpos,newdir*asteroidNS::SPEED);
 		asteroidCounter++;
 	}
 
@@ -148,11 +154,11 @@ void Spacewar::update()
 
 	for(int i=0; i<MAX_ASTEROIDS; i++)
 	{
-			if(asteroids[i].getActive())
-			asteroids[i].update(frameTime);
+		if(asteroids[i].getActive())
+		asteroids[i].update(frameTime);
 		
-			if(i%2) asteroids[i].setRadians(asteroids[i].getRadians() + 0.001);//if an even index of the asteroids array, then rotate clockwise
-			else asteroids[i].setRadians(asteroids[i].getRadians() - 0.001);//if an odd index of the asteroids array, then rotate counter clockwise
+		if(i%2) asteroids[i].setRadians(asteroids[i].getRadians() + 0.001);//if an even index of the asteroids array, then rotate clockwise
+		else asteroids[i].setRadians(asteroids[i].getRadians() - 0.001);//if an odd index of the asteroids array, then rotate counter clockwise
 	}
 	//End Unarmed Asteroid spawning
 }
@@ -170,18 +176,20 @@ void Spacewar::collisions()
 {
 	for(int i = 0; i < MAX_ASTEROIDS; i++)
 	{
-		if(ship.collidesWith(asteroids[i], testCollisionVector))
+		if(asteroids[i].getActive())
 		{
-			ship.setX(0);//ship.setActive(false);
-			asteroids[i].setActive(false);
-		}
-		for(int j =0; j< MAX_BULLETS; j++)
-		{
-			
-			if(asteroids[i].collidesWith(bullets[j],testCollisionVector))
+			if(ship.collidesWith(asteroids[i], testCollisionVector))
 			{
-				asteroids[i].setX(0);
-				bullets[j].setX(0);
+				ship.setActive(false);
+				gameOver = true;
+			}
+			for(int j =0; j< MAX_BULLETS; j++)
+			{	
+				if(asteroids[i].collidesWith(bullets[j],testCollisionVector))
+				{
+					asteroids[i].setActive(false);
+					bullets[j].setActive(false);
+				}
 			}
 		}
 	}
@@ -196,7 +204,10 @@ void Spacewar::render()
 	graphics->spriteBegin();                // begin drawing sprites
 	
 	nebula.draw();                          // add the orion nebula to the scene
-	ship.draw();                            // add the spaceship to the scene
+	if(ship.getActive())
+	{
+		ship.draw();
+	}
 	for(int i=0; i<MAX_BULLETS; i++)
 	{
 		if(bullets[i].getActive())
