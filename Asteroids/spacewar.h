@@ -17,6 +17,7 @@
 #include "asteroid.h"
 #include "textDX.h"
 #include "gun.h"
+#include <sstream>
 
 
 //=============================================================================
@@ -42,7 +43,7 @@ private:
 
 	// text fonts
 	TextDX *dxFontGameOver;
-
+	TextDX *dxFontScore;
 
 	int asteroidCounter;
 	int asterGroupSize;
@@ -52,6 +53,7 @@ private:
 	bool shoot;
 	float shootTime;
 	bool gameOver;
+	int score;
 
 public:
     // Constructor

@@ -30,7 +30,7 @@
 
 // window
 const char CLASS_NAME[] = "Spacewar";
-const char GAME_TITLE[] = "Spacewar";
+const char GAME_TITLE[] = "Revenge of the Asteroids!";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  768;               // width of game in pixels
 const UINT GAME_HEIGHT = 480;               // height of game in pixels
@@ -43,15 +43,16 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 
 const int MAX_BULLETS = 2;
-const int MAX_ENEMY_BULLETS = 50;
-const int MAX_ASTEROIDS = 50;
+const int MAX_ENEMY_BULLETS = 30;
+const int MAX_ASTEROIDS = 30;
 const int MAX_GUNS = 7;
 const float ASTEROID_ROTATION_SPEED = 0.003;
 
 const float ASTEROID_SPAWN_DELAY = 0.4;
-const float SHIP_SHOOT_DELAY = 0.1;
-const float GUN_SHOOT_DELAY = 4.0;
-const float GUN_START_DELAY = 3.0;
+const float SHIP_SHOOT_DELAY = 0.5;
+const float GUN_SHOOT_DELAY = 2.5;
+const float GUN_START_DELAY = 1.5;
+const int ASTEROID_POINTS = 50;
 
 // graphic images
 const char SPACE_IMAGE[] =    "pictures\\background.png";

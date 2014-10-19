@@ -1,31 +1,87 @@
-﻿Build started 10/19/2014 4:37:15 PM.
+﻿Build started 10/19/2014 7:04:22 PM.
      1>Project "C:\Classes\Games\Asteroids\Asteroids\SoundExample1.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SoundExample1.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Include" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt bullet.cpp spacewar.cpp winmain.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Include" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt asteroid.cpp audio.cpp bullet.cpp enemyBullet.cpp entity.cpp game.cpp graphics.cpp gun.cpp image.cpp input.cpp planet.cpp ship.cpp spacewar.cpp textDX.cpp textureManager.cpp winmain.cpp
+         asteroid.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         Generating Code...
+         Compiling...
          winmain.cpp
      1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\bullet.h(17): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\enemybullet.h(17): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         textureManager.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         textDX.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          spacewar.cpp
      1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\bullet.h(17): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\enemybullet.h(17): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(120): warning C4244: 'argument' : conversion from 'const UINT' to 'float', possible loss of data
+     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(46): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(122): warning C4244: 'argument' : conversion from 'const UINT' to 'float', possible loss of data
      1>c:\classes\games\asteroids\asteroids\spacewar.cpp(123): warning C4244: 'argument' : conversion from 'const UINT' to 'float', possible loss of data
-     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(207): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
-     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(208): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
-     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(392): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(216): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
+     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(217): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
+     1>c:\classes\games\asteroids\asteroids\spacewar.cpp(408): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         ship.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         planet.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         input.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         image.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         gun.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         graphics.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         game.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         entity.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         enemyBullet.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\enemybullet.h(17): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          bullet.cpp
      1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\classes\games\asteroids\asteroids\bullet.h(17): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         audio.cpp
+     1>c:\classes\games\asteroids\asteroids\constants.h(49): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(51): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\classes\games\asteroids\asteroids\constants.h(52): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Classes\Games\Asteroids\Asteroids\Debug\SoundExample1.exe" /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Lib\x86" d3d9.lib d3dx9.lib winmm.lib xinput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Classes\Games\Asteroids\Asteroids\Debug\SoundExample1.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Classes\Games\Asteroids\Asteroids\Debug\SoundExample1.lib" /MACHINE:X86 /SAFESEH Debug\asteroid.obj
@@ -52,4 +108,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.66
+Time Elapsed 00:00:17.22

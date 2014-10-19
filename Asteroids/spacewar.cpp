@@ -22,6 +22,7 @@ VECTOR2 testCollisionVector;//NEC
 Spacewar::Spacewar()
 {
 	dxFontGameOver = new TextDX();
+	dxFontScore = new TextDX();
 }
 
 //=============================================================================
@@ -31,6 +32,7 @@ Spacewar::~Spacewar()
 {
 	releaseAll();           // call onLostDevice() for every graphics item
 	SAFE_DELETE(dxFontGameOver);
+	SAFE_DELETE(dxFontScore);
 }
 
 //=============================================================================
@@ -40,6 +42,8 @@ Spacewar::~Spacewar()
 void Spacewar::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
+	
+	srand(time(0));
 
 	// TEXTURE INIT --------------------------------------------
     // background texture
@@ -94,7 +98,7 @@ void Spacewar::initialize(HWND hwnd)
 	}
 
 	// enemy bullets
-	for(int i=0; i<MAX_BULLETS; i++)
+	for(int i=0; i<MAX_ENEMY_BULLETS; i++)
 	{
 		if (!enemyBullets[i].initialize(this, enemyBulletNS::WIDTH, enemyBulletNS::HEIGHT, enemyBulletNS::TEXTURE_COLS, &enemyBulletTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy bullets"));
@@ -104,7 +108,7 @@ void Spacewar::initialize(HWND hwnd)
 	//unarmed asteroids
 	for(int i=0; i<MAX_ASTEROIDS; i++)
 	{
-		if (!asteroids[i].initialize(this, asteroidNS::WIDTH, asteroidNS::HEIGHT, 0, &asteroidTextures))//asteroidNS::TEXTURE_COLS
+		if (!asteroids[i].initialize(this, asteroidNS::WIDTH, asteroidNS::HEIGHT, asteroidNS::TEXTURE_COLS, &asteroidTextures))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing bullets"));
 		asteroids[i].setCurrentFrame(0);
 	}
@@ -112,16 +116,13 @@ void Spacewar::initialize(HWND hwnd)
 	//gun asteroids
 	for(int i=0; i<MAX_GUNS; i++)
 	{
-		if (!guns[i].initialize(this, gunNS::WIDTH, gunNS::HEIGHT, 0, &gunTexture))
+		if (!guns[i].initialize(this, gunNS::WIDTH, gunNS::HEIGHT, gunNS::TEXTURE_COLS, &gunTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing bullets"));
 		guns[i].setCurrentFrame(0);
-		guns[i].setX(
-			rand()%(GAME_WIDTH/25)
-			);
-		guns[i].setY(
-			rand()%(GAME_HEIGHT/(2*MAX_GUNS))+(GAME_HEIGHT/(4*MAX_GUNS))+(i*GAME_HEIGHT/MAX_GUNS)
-			);
+		guns[i].setX(rand()%(GAME_WIDTH/25));
+		guns[i].setY(rand()%(GAME_HEIGHT/(2*MAX_GUNS))+(GAME_HEIGHT/(4*MAX_GUNS))+(i*GAME_HEIGHT/MAX_GUNS));
 		guns[i].setVelocity(VECTOR2(0,0));
+		guns[i].setShootTime((((float)rand())/(float)RAND_MAX)*GUN_SHOOT_DELAY - GUN_START_DELAY);
 	}
 
 	//------------------------------------------------------------
@@ -131,13 +132,16 @@ void Spacewar::initialize(HWND hwnd)
 	if(dxFontGameOver->initialize(graphics, 64, false, true, "Arial") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
+	if(dxFontScore->initialize(graphics, 32, true, false, "Arial") == false)
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
 	//--------------------------------------------------------------
 
-	// flags
+	// flags & game values
 	shoot = false;
 	shootTime = 0;
 	gameOver = false;
+	score = 0;
 
 	asteroidCounter = 0;
 	asterGroupSize = 1;//NEC default should be 1...25 for testing
@@ -151,6 +155,11 @@ void Spacewar::initialize(HWND hwnd)
 //=============================================================================
 void Spacewar::update()
 {
+	if(input->isKeyDown(ESC_KEY))
+	{
+		exitGame();
+	}
+
 	if(ship.getActive())
 	{
 		ship.update(frameTime, shoot);
@@ -174,8 +183,8 @@ void Spacewar::update()
 			if(shoot)
 			{
 				spawnEnemyBullet(VECTOR2(guns[i].getX()+(gunNS::SCALE*guns[i].getWidth()*3)/4,
-									guns[i].getY()+(gunNS::SCALE*guns[i].getHeight()/2)),
-									VECTOR2(enemyBulletNS::SPEED,0));
+										 guns[i].getY()+(gunNS::SCALE*guns[i].getHeight()*3)/8),
+										 VECTOR2(enemyBulletNS::SPEED,0));
 				audio->playCue(PEW);
 			}
 		}
@@ -257,6 +266,7 @@ void Spacewar::collisions()
 				{
 					asteroids[i].setActive(false);
 					bullets[j].setActive(false);
+					score += int(asteroids[i].getX())/ASTEROID_POINTS;
 				}
 			}
 		}
@@ -265,6 +275,7 @@ void Spacewar::collisions()
 	{
 		if(enemyBullets[i].collidesWith(ship,testCollisionVector))
 		{
+			enemyBullets[i].setActive(false);
 			ship.setActive(false);
 			gameOver = true;
 		}
@@ -285,8 +296,10 @@ void Spacewar::collisions()
 //=============================================================================
 void Spacewar::render()
 {
+	std::stringstream scoreStream;
+	scoreStream << "Score: " << score;
+
 	graphics->spriteBegin();                // begin drawing sprites
-	
 	background.draw();
 
 	if(gameOver)
@@ -295,29 +308,32 @@ void Spacewar::render()
 		dxFontGameOver->print(GAME_OVER_MESSAGE,GAME_WIDTH/3,GAME_HEIGHT/3);
 	}
 
-	if(ship.getActive())
-	{
-		ship.draw();
-	}
+	dxFontScore->setFontColor(graphicsNS::WHITE);
+	dxFontScore->print(scoreStream.str(),GAME_WIDTH/4,0);
+
 	for(int i=0; i<MAX_ASTEROIDS; i++)
 	{
 		if(asteroids[i].getActive())
 			asteroids[i].draw();
+	}
+	for(int i=0; i < MAX_BULLETS; i++)
+	{
+		if(bullets[i].getActive())
+			bullets[i].draw();
+	}
+	for(int i=0; i < MAX_ENEMY_BULLETS; i++)
+	{
+		if(enemyBullets[i].getActive())
+			enemyBullets[i].draw();
 	}
 	for(int i=0; i<MAX_GUNS; i++)
 	{
 		if(guns[i].getActive())
 			guns[i].draw();
 	}
-	for(int i=0; i<MAX_BULLETS; i++)
+	if(ship.getActive())
 	{
-		if(bullets[i].getActive())
-			bullets[i].draw();
-	}
-	for(int i=0; i<MAX_ENEMY_BULLETS; i++)
-	{
-		if(enemyBullets[i].getActive())
-			enemyBullets[i].draw();
+		ship.draw();
 	}
 	
     graphics->spriteEnd();                  // end drawing sprites
@@ -401,6 +417,7 @@ void Spacewar::spawnAsteroid(VECTOR2 pos, VECTOR2 vel)
 void Spacewar::releaseAll()
 {
 	dxFontGameOver->onLostDevice();
+	dxFontScore->onLostDevice();
     backgroundTexture.onLostDevice();
 	shipTextures.onLostDevice();
 	asteroidTextures.onLostDevice();
@@ -416,6 +433,7 @@ void Spacewar::releaseAll()
 void Spacewar::resetAll()
 {
 	dxFontGameOver->onResetDevice();
+	dxFontScore->onResetDevice();
 	backgroundTexture.onResetDevice();
 	shipTextures.onResetDevice();
 	asteroidTextures.onResetDevice();

@@ -14,7 +14,12 @@ Gun::Gun() : Entity()
     radius = gunNS::WIDTH/2.0 - 10;
     collisionType = entityNS::CIRCLE;
 	active = true;
-	shootTime = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX/GUN_SHOOT_DELAY)) - GUN_START_DELAY;
+	shootTime = 0;
+}
+
+void Gun::setShootTime(float s)
+{
+	shootTime = s;
 }
 
 
@@ -26,7 +31,7 @@ void Gun::update(float frameTime, bool& shoot)
     spriteData.y += frameTime * velocity.y;     // move ship along Y
 
 	shootTime += frameTime;
-
+	
 	if(shootTime > GUN_SHOOT_DELAY)
 	{
 		shoot = true;
@@ -36,22 +41,4 @@ void Gun::update(float frameTime, bool& shoot)
 	{
 		shoot = false;
 	}
-
-/*	if (spriteData.x > GAME_WIDTH-gunNS::WIDTH*getScale() + 96)//NEC added + 96
-    {
-		setActive(false);
-    }
-    else if (spriteData.x < -96)//NEC changed from 0 to -96
-    {
-        setActive(false);
-	}
-    if (spriteData.y > GAME_HEIGHT-gunNS::HEIGHT*getScale() + 96)//NEC added + 96
-    {
-        setActive(false);
-	}
-	else if (spriteData.y < -96)//NEC changed from 0 to -96
-	{
-		setActive(false);
-	}
-	*/
 }

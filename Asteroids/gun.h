@@ -7,8 +7,8 @@
 
 namespace gunNS
 {
-	const int WIDTH = 96;                   // image width
-    const int HEIGHT = 64;                  // image height
+	const int WIDTH = 108;                   // image width
+    const int HEIGHT = 74;                  // image height
     const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
     const int Y = GAME_HEIGHT/2 - HEIGHT/2;
 	const float SCALE = 0.5;
@@ -16,10 +16,11 @@ namespace gunNS
     const float SPEED = 100;                // 10 pixels per second
     const float MASS = 300.0f;              // mass
 
-	const int   TEXTURE_COLS = 1;           // texture has 2 columns
+	const int   TEXTURE_COLS = 2;           // texture has 2 columns
 	const int   GUN_START_FRAME = 0;      // ship starts at frame 0
 	const int   GUN_END_FRAME = 0;         // ship animation frames 0,1,2,3
 	const float GUN_ANIMATION_DELAY = 0.2f;    // time between frames
+	const int	GUN_FLASH_FRAME = 1;
 }
 
 
@@ -30,6 +31,8 @@ protected:
 public:
     // constructor
     Gun();
+
+	void setShootTime(float s);
 
     // inherited member functions
     void update(float frameTime, bool& shoot);
