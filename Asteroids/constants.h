@@ -42,14 +42,16 @@ const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 
-const int MAX_BULLETS = 50;
-const float SHIP_SHOOT_DELAY = 0.8;
-const int MAX_ASTEROIDS = 50;
-const float ASTEROID_ROTATION_SPEED = 0.003;
-const float ASTEROID_SPAWN_DELAY = 0.4;
-const int MAX_GUNS = 7;
-const float GUN_SHOOT_DELAY = 4.0;
+const int MAX_BULLETS = 2;
 const int MAX_ENEMY_BULLETS = 50;
+const int MAX_ASTEROIDS = 50;
+const int MAX_GUNS = 7;
+const float ASTEROID_ROTATION_SPEED = 0.003;
+
+const float ASTEROID_SPAWN_DELAY = 0.4;
+const float SHIP_SHOOT_DELAY = 0.1;
+const float GUN_SHOOT_DELAY = 4.0;
+const float GUN_START_DELAY = 3.0;
 
 // graphic images
 const char SPACE_IMAGE[] =    "pictures\\background.png";

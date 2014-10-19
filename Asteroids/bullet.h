@@ -12,7 +12,7 @@ namespace bulletNS
     const int X = GAME_WIDTH/2 - WIDTH/2;   // location on screen
     const int Y = GAME_HEIGHT/2 - HEIGHT/2;
     const float ROTATION_RATE = (float)PI;  // radians per second
-    const float SPEED = 1000;                // 100 pixels per second
+    const float SPEED = 700;                // 100 pixels per second
     const float MASS = 300.0f;              // mass
 	const float SCALE = 0.3;			// image scale
 

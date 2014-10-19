@@ -14,7 +14,7 @@ Gun::Gun() : Entity()
     radius = gunNS::WIDTH/2.0 - 10;
     collisionType = entityNS::CIRCLE;
 	active = true;
-	shootTime = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/GUN_SHOOT_DELAY);
+	shootTime = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX/GUN_SHOOT_DELAY)) - GUN_START_DELAY;
 }
 
 

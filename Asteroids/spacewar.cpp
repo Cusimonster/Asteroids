@@ -175,7 +175,7 @@ void Spacewar::update()
 			{
 				spawnEnemyBullet(VECTOR2(guns[i].getX()+(gunNS::SCALE*guns[i].getWidth()*3)/4,
 									guns[i].getY()+(gunNS::SCALE*guns[i].getHeight()/2)),
-									VECTOR2(bulletNS::SPEED,0));
+									VECTOR2(enemyBulletNS::SPEED,0));
 				audio->playCue(PEW);
 			}
 		}
@@ -261,9 +261,17 @@ void Spacewar::collisions()
 			}
 		}
 	}
-	for(int i = 0; i < MAX_ENEMY_BULLETS; i++)
+	for(int i=0; i < MAX_ENEMY_BULLETS; i++)
 	{
 		if(enemyBullets[i].collidesWith(ship,testCollisionVector))
+		{
+			ship.setActive(false);
+			gameOver = true;
+		}
+	}
+	for(int i=0; i < MAX_GUNS; i++)
+	{
+		if(guns[i].collidesWith(ship,testCollisionVector))
 		{
 			ship.setActive(false);
 			gameOver = true;
@@ -315,9 +323,9 @@ void Spacewar::render()
     graphics->spriteEnd();                  // end drawing sprites
 }
 
-//
+//----------------------------------------
 // activate new bullet
-//
+//----------------------------------------
 void Spacewar::spawnBullet(VECTOR2 pos, VECTOR2 vel)
 {
 	Bullet* first = nullptr;
@@ -338,9 +346,9 @@ void Spacewar::spawnBullet(VECTOR2 pos, VECTOR2 vel)
 	}
 }
 
-//
+//----------------------------------------
 // activate new enemy bullet
-//
+//----------------------------------------
 void Spacewar::spawnEnemyBullet(VECTOR2 pos, VECTOR2 vel)
 {
 	EnemyBullet* first = nullptr;
@@ -361,9 +369,9 @@ void Spacewar::spawnEnemyBullet(VECTOR2 pos, VECTOR2 vel)
 	}
 }
 
-//
+//----------------------------------------
 // activate new Asteroid
-//
+//----------------------------------------
 void Spacewar::spawnAsteroid(VECTOR2 pos, VECTOR2 vel)
 {
 	Asteroid* first = nullptr;

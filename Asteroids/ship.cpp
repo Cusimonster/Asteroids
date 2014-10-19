@@ -23,7 +23,7 @@ Ship::Ship() : Entity()
     startFrame = shipNS::SHIP1_START_FRAME;     // first frame of ship animation
     endFrame     = shipNS::SHIP1_END_FRAME;     // last frame of ship animation
     currentFrame = startFrame;
-    radius = shipNS::WIDTH/2.0 - 10.0;//shipNS::WIDTH/2.0;
+    radius = shipNS::HEIGHT/2.0;//shipNS::WIDTH/2.0;
     collisionType = entityNS::CIRCLE;
 	direction.x = 0;
 	direction.y = 0;

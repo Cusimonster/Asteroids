@@ -13,7 +13,7 @@ Asteroid::Asteroid() : Entity()
     spriteData.rect.right = asteroidNS::WIDTH;
     velocity.x = 0;                             // velocity X
     velocity.y = 0;                             // velocity Y
-    radius = asteroidNS::WIDTH/2.0 - 10;
+    radius = (asteroidNS::WIDTH + asteroidNS::HEIGHT)/4.0;
     collisionType = entityNS::CIRCLE;
 	active = false;
 }
