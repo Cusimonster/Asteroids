@@ -259,6 +259,7 @@ void Spacewar::collisions()
 			{
 				ship.setActive(false);
 				gameOver = true;
+				audio->playCue(POW);
 			}
 			for(int j=0; j < MAX_BULLETS; j++)
 			{	
@@ -266,6 +267,7 @@ void Spacewar::collisions()
 				{
 					asteroids[i].setActive(false);
 					bullets[j].setActive(false);
+					audio->playCue(POW);
 					score += int(asteroids[i].getX())/ASTEROID_POINTS;
 				}
 			}
@@ -278,6 +280,7 @@ void Spacewar::collisions()
 			enemyBullets[i].setActive(false);
 			ship.setActive(false);
 			gameOver = true;
+			audio->playCue(POW);
 		}
 	}
 	for(int i=0; i < MAX_GUNS; i++)
@@ -286,6 +289,7 @@ void Spacewar::collisions()
 		{
 			ship.setActive(false);
 			gameOver = true;
+			audio->playCue(POW);
 		}
 	}
 	

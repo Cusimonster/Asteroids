@@ -82,6 +82,7 @@ const char BEEP4[] = "beep4";
 const char HIT[]   = "hit";
 const char BOOP[]  = "boop";
 const char PEW[]   = "pew";
+const char POW[]   = "pow";
 
 
 // key mappings
