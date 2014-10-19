@@ -1,4 +1,4 @@
-﻿Build started 10/19/2014 7:11:51 PM.
+﻿Build started 10/19/2014 7:14:00 PM.
      1>Project "C:\Classes\Games\Asteroids\Asteroids\SoundExample1.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\SoundExample1.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -15,6 +15,7 @@
      1>c:\classes\games\asteroids\asteroids\spacewar.cpp(216): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
      1>c:\classes\games\asteroids\asteroids\spacewar.cpp(217): warning C4244: 'argument' : conversion from 'const UINT' to 'FLOAT', possible loss of data
      1>c:\classes\games\asteroids\asteroids\spacewar.cpp(412): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Classes\Games\Asteroids\Asteroids\Debug\SoundExample1.exe" /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Lib\x86" d3d9.lib d3dx9.lib winmm.lib xinput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Classes\Games\Asteroids\Asteroids\Debug\SoundExample1.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Classes\Games\Asteroids\Asteroids\Debug\SoundExample1.lib" /MACHINE:X86 /SAFESEH Debug\asteroid.obj
          Debug\audio.obj
@@ -40,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.88
+Time Elapsed 00:00:01.82

@@ -132,7 +132,7 @@ void Spacewar::initialize(HWND hwnd)
 	if(dxFontGameOver->initialize(graphics, 64, false, true, "Arial") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
-	if(dxFontScore->initialize(graphics, 32, true, false, "Arial") == false)
+	if(dxFontScore->initialize(graphics, 32, false, false, "Arial") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
 	//--------------------------------------------------------------
