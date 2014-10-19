@@ -10,7 +10,9 @@ Bullet::Bullet() : Entity()
     spriteData.y = bulletNS::Y;
     spriteData.rect.bottom = bulletNS::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = bulletNS::WIDTH;
-    velocity.x = 0;                             // velocity X
+	spriteData.scale = bulletNS::SCALE;
+
+	velocity.x = 0;                             // velocity X
     velocity.y = 0;                             // velocity Y
     radius = bulletNS::WIDTH/2.0;
     collisionType = entityNS::CIRCLE;

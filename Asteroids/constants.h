@@ -32,7 +32,7 @@
 const char CLASS_NAME[] = "Spacewar";
 const char GAME_TITLE[] = "Spacewar";
 const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT GAME_WIDTH =  640;               // width of game in pixels
+const UINT GAME_WIDTH =  768;               // width of game in pixels
 const UINT GAME_HEIGHT = 480;               // height of game in pixels
 
 // game
@@ -43,15 +43,27 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 
 const int MAX_BULLETS = 50;
-const float SHOOT_DELAY = 1;
+const float SHIP_SHOOT_DELAY = 0.8;
 const int MAX_ASTEROIDS = 50;
-
+const float ASTEROID_ROTATION_SPEED = 0.003;
+const float ASTEROID_SPAWN_DELAY = 0.4;
+const int MAX_GUNS = 7;
+const float GUN_SHOOT_DELAY = 4.0;
+const int MAX_ENEMY_BULLETS = 50;
 
 // graphic images
-const char NEBULA_IMAGE[] =    "pictures\\orion.jpg";     // photo source NASA/courtesy of nasaimages.org 
-const char TEXTURES_IMAGE[] =  "pictures\\textures.png";  // game textures
+const char SPACE_IMAGE[] =    "pictures\\background.png";
+const char BULLET_IMAGE[] =		"pictures\\bullet.png";
+const char ENEMY_BULLET_IMAGE[] = "pictures\\enemybullet.png";
 const char SHIP_IMAGE[] =	   "pictures\\Ship.png";
 const char ASTEROID_IMAGE[] = "pictures\\asteroid.png";
+const char GUN_IMAGE[] =	"pictures\\asteroidGun.png";
+
+
+//text messages
+const char GAME_OVER_MESSAGE[] = "Game Over...";
+
+
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.
@@ -66,6 +78,7 @@ const char BEEP3[] = "beep3";
 const char BEEP4[] = "beep4";
 const char HIT[]   = "hit";
 const char BOOP[]  = "boop";
+const char PEW[]   = "pew";
 
 
 // key mappings

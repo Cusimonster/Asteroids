@@ -13,7 +13,11 @@
 #include "planet.h"
 #include "ship.h"
 #include "bullet.h"
+#include "enemyBullet.h"
 #include "asteroid.h"
+#include "textDX.h"
+#include "gun.h"
+
 
 //=============================================================================
 // This class is the core of the game
@@ -22,19 +26,27 @@ class Spacewar : public Game
 {
 private:
     // game items
-    TextureManager nebulaTexture;   // nebula texture
-    TextureManager gameTextures;    // game texture
-	TextureManager shipTextures; 
-	TextureManager asteroidTextures; 
+    TextureManager backgroundTexture;	// nebula texture
+	TextureManager shipTextures;
+	TextureManager asteroidTextures;
+	TextureManager gunTexture;
+	TextureManager bulletTexture;
+	TextureManager enemyBulletTexture;
 
-    Ship    ship;           		// spaceship
-    Planet  planet;                 // the planet
-    Image   nebula;                 // backdrop image
-	Bullet  bullets[MAX_BULLETS];   // array of bullets
-	Asteroid asteroids[MAX_ASTEROIDS];   // array of bullets
+	Ship    ship;           		// spaceship
+	Image	background;					// backdrop image
+	Bullet  bullets[MAX_BULLETS];	// array of bullets
+	EnemyBullet enemyBullets[MAX_ENEMY_BULLETS];
+	Asteroid asteroids[MAX_ASTEROIDS];	// array of bullets
+	Gun		guns[MAX_GUNS];
+
+	// text fonts
+	TextDX *dxFontGameOver;
+
 
 	int asteroidCounter;
 	int asterGroupSize;
+	float asteroidSpawnTime;
 
 	// flags
 	bool shoot;
@@ -57,6 +69,7 @@ public:
 
 	
 	void spawnBullet(VECTOR2 pos, VECTOR2 vel);
+	void spawnEnemyBullet(VECTOR2 pos, VECTOR2 vel);
 	void spawnAsteroid(VECTOR2 pos, VECTOR2 vel);
 	
 

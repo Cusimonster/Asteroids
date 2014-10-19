@@ -16,6 +16,7 @@ Ship::Ship() : Entity()
     spriteData.y = shipNS::Y;
     spriteData.rect.bottom = shipNS::HEIGHT;    // rectangle to select parts of an image
     spriteData.rect.right = shipNS::WIDTH;
+	spriteData.scale = shipNS::SCALE;
     velocity.x = 0;                             // velocity X
     velocity.y = 0;                             // velocity Y
     frameDelay = shipNS::SHIP_ANIMATION_DELAY;
@@ -76,9 +77,9 @@ void Ship::update(float frameTime, bool& shoot)
     {
         spriteData.x = GAME_WIDTH-shipNS::WIDTH*getScale();   
     } 
-    else if (spriteData.x < 0)
+    else if (spriteData.x < GAME_WIDTH/20)
     {
-        spriteData.x = 0;
+        spriteData.x = GAME_WIDTH/20;
     }
     if (spriteData.y > GAME_HEIGHT-shipNS::HEIGHT*getScale())
     {
