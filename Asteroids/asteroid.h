@@ -16,8 +16,8 @@ namespace asteroidNS
     const float MASS = 300.0f;              // mass
 
 	const int   TEXTURE_COLS = 1;           // texture has 1 columns
-	const int   ASTEROID_START_FRAME = 9;      // ship starts at frame 0
-	const int   ASTEROID_END_FRAME = 9;         // ship animation frames 0,1,2,3
+	const int   ASTEROID_START_FRAME = 0;      // ship starts at frame 0
+	const int   ASTEROID_END_FRAME = 0;         // ship animation frames 0,1,2,3
 	const float ASTEROID_ANIMATION_DELAY = 0.2f;    // time between frames
 }
 

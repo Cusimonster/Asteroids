@@ -23,7 +23,6 @@ namespace gunNS
 	const int	GUN_FLASH_FRAME = 1;
 }
 
-
 class Gun : public Entity
 {
 protected:
@@ -37,8 +36,5 @@ public:
     // inherited member functions
     void update(float frameTime, bool& shoot);
 };
-
-
-
 
 #endif

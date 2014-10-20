@@ -70,6 +70,10 @@ void Spacewar::initialize(HWND hwnd)
 	if (!gunTexture.initialize(graphics,GUN_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing gunsteroid texture"));
 
+	//powerup texture
+	if (!powerTexture.initialize(graphics,POWER_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing powerup texture"));
+
 	//-----------------------------------------------------
 
    
@@ -84,7 +88,6 @@ void Spacewar::initialize(HWND hwnd)
 	// ship
 	if (!ship.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &shipTextures))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1"));
-
 	ship.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
 	ship.setCurrentFrame(shipNS::SHIP1_START_FRAME);
 	ship.setVelocity(VECTOR2(shipNS::SPEED,-shipNS::SPEED)); // VECTOR2(X, Y)
@@ -125,6 +128,10 @@ void Spacewar::initialize(HWND hwnd)
 		guns[i].setShootTime((((float)rand())/(float)RAND_MAX)*GUN_SHOOT_DELAY - GUN_START_DELAY);
 	}
 
+	// powerup
+	if (!power.initialize(this, powerNS::WIDTH, powerNS::HEIGHT, powerNS::TEXTURE_COLS, &powerTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing powerup"));
+	
 	//------------------------------------------------------------
 
 	// DIRECTX FONT INIT ------------------------------------------
@@ -142,6 +149,9 @@ void Spacewar::initialize(HWND hwnd)
 	shootTime = 0;
 	gameOver = false;
 	score = 0;
+	powerupActive = false;
+	powerupTime = 0;
+	timeSincePowerupSpawn = 0;
 
 	asteroidCounter = 0;
 	asterGroupSize = 1;//NEC default should be 1...25 for testing
@@ -163,8 +173,20 @@ void Spacewar::update()
 	if(ship.getActive())
 	{
 		ship.update(frameTime, shoot);
-		shootTime += frameTime;
-	
+		if(powerupActive)
+		{
+			shootTime += 3*frameTime;
+			powerupTime += frameTime;
+			if(powerupTime >= POWERUP_DURATION)
+			{
+				powerupActive = false;
+			}
+		}
+		else
+		{
+			shootTime += frameTime;
+		}
+		
 		if(shoot && shootTime >= SHIP_SHOOT_DELAY)
 		{
 			spawnBullet(VECTOR2(ship.getX()+(shipNS::SCALE*ship.getWidth()*3)/4,
@@ -174,6 +196,13 @@ void Spacewar::update()
 			shootTime = 0;
 		}
 	}
+
+	if(timeSincePowerupSpawn >= POWERUP_FREQUENCY)
+	{
+		spawnPowerup(VECTOR2(GAME_WIDTH,GAME_HEIGHT/2),VECTOR2(-1*powerNS::SPEED,0));
+		timeSincePowerupSpawn = 0;
+	}
+	timeSincePowerupSpawn += frameTime;
 
 	for(int i=0; i<MAX_GUNS; i++)
 	{
@@ -200,6 +229,11 @@ void Spacewar::update()
 	{
 		if(enemyBullets[i].getActive())
 			enemyBullets[i].update(frameTime);
+	}
+
+	if(power.getActive())
+	{
+		power.update(frameTime);
 	}
 	
 	seconds_since_start = difftime( time(0), start);
@@ -292,6 +326,12 @@ void Spacewar::collisions()
 			audio->playCue(POW);
 		}
 	}
+	if(power.collidesWith(ship,testCollisionVector))
+	{
+		power.setActive(false);
+		powerupActive = true;
+		powerupTime = 0;
+	}
 	
 }
 
@@ -329,6 +369,10 @@ void Spacewar::render()
 	{
 		if(enemyBullets[i].getActive())
 			enemyBullets[i].draw();
+	}
+	if(power.getActive())
+	{
+		power.draw();
 	}
 	for(int i=0; i<MAX_GUNS; i++)
 	{
@@ -413,6 +457,18 @@ void Spacewar::spawnAsteroid(VECTOR2 pos, VECTOR2 vel)
 	}
 }
 
+void Spacewar::spawnPowerup(VECTOR2 pos, VECTOR2 vel)
+{
+	if(!power.getActive())
+	{
+		power.setActive(true);
+		power.setVelocity(vel);
+		power.setX(pos.x);
+		power.setY(pos.y);
+		power.setDegrees(rand());
+	}
+}
+
 
 //=============================================================================
 // The graphics device was lost.
@@ -426,6 +482,7 @@ void Spacewar::releaseAll()
 	shipTextures.onLostDevice();
 	asteroidTextures.onLostDevice();
 	gunTexture.onLostDevice();
+	powerTexture.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -442,6 +499,7 @@ void Spacewar::resetAll()
 	shipTextures.onResetDevice();
 	asteroidTextures.onResetDevice();
 	gunTexture.onResetDevice();
+	powerTexture.onResetDevice();
     Game::resetAll();
     return;
 }

@@ -29,7 +29,7 @@
 //-----------------------------------------------
 
 // window
-const char CLASS_NAME[] = "Spacewar";
+const char CLASS_NAME[] = "Revenge of the Asteroids!";
 const char GAME_TITLE[] = "Revenge of the Asteroids!";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  768;               // width of game in pixels
@@ -42,17 +42,20 @@ const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 
-const int MAX_BULLETS = 2;
+const int MAX_BULLETS = 15;
 const int MAX_ENEMY_BULLETS = 30;
 const int MAX_ASTEROIDS = 30;
 const int MAX_GUNS = 7;
 const float ASTEROID_ROTATION_SPEED = 0.003;
+const float POWERUP_ROTATION_SPEED = 0.004;
 
 const float ASTEROID_SPAWN_DELAY = 0.4;
 const float SHIP_SHOOT_DELAY = 0.5;
 const float GUN_SHOOT_DELAY = 2.5;
 const float GUN_START_DELAY = 1.5;
 const int ASTEROID_POINTS = 50;
+const float POWERUP_DURATION = 3.0;
+const float POWERUP_FREQUENCY = 15.0;
 
 // graphic images
 const char SPACE_IMAGE[] =    "pictures\\background.png";
@@ -61,6 +64,7 @@ const char ENEMY_BULLET_IMAGE[] = "pictures\\enemybullet.png";
 const char SHIP_IMAGE[] =	   "pictures\\Ship.png";
 const char ASTEROID_IMAGE[] = "pictures\\asteroid.png";
 const char GUN_IMAGE[] =	"pictures\\asteroidGun.png";
+const char POWER_IMAGE[] = "pictures\\power.png";
 
 
 //text messages

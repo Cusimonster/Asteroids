@@ -17,6 +17,7 @@
 #include "asteroid.h"
 #include "textDX.h"
 #include "gun.h"
+#include "power.h"
 #include <sstream>
 
 
@@ -33,6 +34,7 @@ private:
 	TextureManager gunTexture;
 	TextureManager bulletTexture;
 	TextureManager enemyBulletTexture;
+	TextureManager powerTexture;
 
 	Ship    ship;           		// spaceship
 	Image	background;					// backdrop image
@@ -40,6 +42,7 @@ private:
 	EnemyBullet enemyBullets[MAX_ENEMY_BULLETS];
 	Asteroid asteroids[MAX_ASTEROIDS];	// array of bullets
 	Gun		guns[MAX_GUNS];
+	Power	power;
 
 	// text fonts
 	TextDX *dxFontGameOver;
@@ -54,6 +57,9 @@ private:
 	float shootTime;
 	bool gameOver;
 	int score;
+	bool powerupActive;
+	float powerupTime;
+	float timeSincePowerupSpawn;
 
 public:
     // Constructor
@@ -73,7 +79,7 @@ public:
 	void spawnBullet(VECTOR2 pos, VECTOR2 vel);
 	void spawnEnemyBullet(VECTOR2 pos, VECTOR2 vel);
 	void spawnAsteroid(VECTOR2 pos, VECTOR2 vel);
-	
+	void spawnPowerup(VECTOR2 pos, VECTOR2 vel);
 
 	void releaseAll();
     void resetAll();
