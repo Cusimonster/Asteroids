@@ -199,7 +199,7 @@ void Spacewar::update()
 
 	if(timeSincePowerupSpawn >= POWERUP_FREQUENCY)
 	{
-		spawnPowerup(VECTOR2(GAME_WIDTH,GAME_HEIGHT/2),VECTOR2(-1*powerNS::SPEED,0));
+		spawnPowerup(VECTOR2(GAME_WIDTH,(GAME_HEIGHT/4)+rand()%(GAME_HEIGHT/2)),VECTOR2(-1*powerNS::SPEED,0));
 		timeSincePowerupSpawn = 0;
 	}
 	timeSincePowerupSpawn += frameTime;
