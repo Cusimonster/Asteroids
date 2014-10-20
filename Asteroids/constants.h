@@ -45,7 +45,7 @@ const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calcul
 const int MAX_BULLETS = 15;
 const int MAX_ENEMY_BULLETS = 30;
 const int MAX_ASTEROIDS = 30;
-const int MAX_GUNS = 7;
+const int MAX_GUNS = 6;
 const float ASTEROID_ROTATION_SPEED = 0.003;
 const float POWERUP_ROTATION_SPEED = 0.004;
 
